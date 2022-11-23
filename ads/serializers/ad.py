@@ -23,7 +23,7 @@ class AdSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AdCreateSerializer(serializers.ModelSerial):
+class AdCreateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     image = serializers.ImageField(required=False)
     author = serializers.SlugRelatedField(
@@ -41,10 +41,10 @@ class AdCreateSerializer(serializers.ModelSerial):
         model = Ad
         fields = '__all__'
 
-    def is_valid(self, reise_exeption=False):
+    def is_valid(self, raise_exception=False):
         self._author_id = self.initial_data.pop('author_id')
         self._category_id = self.initial_data.pop('category_id')
-        return super().is_valid(reise_exeption=reise_exeption)
+        return super().is_valid(raise_exception=raise_exception)
 
     def create(self, validated_data):
         ad = Ad.objects.create(
@@ -60,7 +60,7 @@ class AdCreateSerializer(serializers.ModelSerial):
         return ad
 
 
-class AdUpdateSerializer(serializers.ModelSerial):
+class AdUpdateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
     image = serializers.ImageField(required=False)
     author = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -86,7 +86,7 @@ class AdUpdateSerializer(serializers.ModelSerial):
         return ad
 
 
-class AdImageSerializer(serializers.ModelSerial):
+class AdImageSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     author = serializers.PrimaryKeyRelatedField(read_only=True)
     category = serializers.PrimaryKeyRelatedField(read_only=True)
