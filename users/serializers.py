@@ -27,7 +27,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-    def is_valid(self, *, raise_exception=False):
+    def is_valid(self, raise_exception=False):
         self._location = self.initial_data.pop('location')
         return super().is_valid(raise_exception=raise_exception)
 
@@ -55,7 +55,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-    def is_valid(self, *, raise_exception=False):
+    def is_valid(self, raise_exception=False):
         self._location = self.initial_data.pop('location')
         return super().is_valid(raise_exception=raise_exception)
 
@@ -65,4 +65,5 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         location, _ = Location.objects.get_or_create(name=self._location)
         user.location = location
         user.save()
+
         return user
