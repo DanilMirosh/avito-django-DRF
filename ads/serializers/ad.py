@@ -9,9 +9,8 @@ class AdSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         required=False,
         queryset=User.objects.all(),
-        slug_field='username',
+        slug_field='username'
     )
-
     category = serializers.SlugRelatedField(
         required=False,
         queryset=Category.objects.all(),
@@ -29,12 +28,12 @@ class AdCreateSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         required=False,
         queryset=User.objects.all(),
-        slug_field='username',
+        slug_field='username'
     )
     category = serializers.SlugRelatedField(
         required=False,
         queryset=Category.objects.all(),
-        slug_field='name',
+        slug_field='name'
     )
 
     class Meta:
@@ -48,10 +47,10 @@ class AdCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         ad = Ad.objects.create(
-            name=validated_data.get('name'),
-            price=validated_data.get('price'),
-            description=validated_data.get('description'),
-            is_published=validated_data.get('is_published')
+                name=validated_data.get('name'),
+                price=validated_data.get('price'),
+                description=validated_data.get('description'),
+                is_published=validated_data.get('is_published')
         )
         ad.author = get_object_or_404(User, pk=self._author_id)
         ad.category = get_object_or_404(Category, pk=self._category_id)
@@ -61,13 +60,13 @@ class AdCreateSerializer(serializers.ModelSerializer):
 
 
 class AdUpdateSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=True)
+    id = serializers.IntegerField(read_only=True)
     image = serializers.ImageField(required=False)
     author = serializers.PrimaryKeyRelatedField(read_only=True)
     category = serializers.SlugRelatedField(
         required=False,
         queryset=Category.objects.all(),
-        slug_field='name',
+        slug_field='name'
     )
 
     class Meta:

@@ -21,3 +21,5 @@ urlpatterns = [
     path('cat/<int:pk>/delete/', CategoryDeleteView.as_view()),
     path('cat/create/', CategoryCreateView.as_view())
 ]
+
+urlpatterns += router.urls
