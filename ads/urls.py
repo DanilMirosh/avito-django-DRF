@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework import routers
 
 from ads.views import *
+from ads.views.location import LocationViewSet
 
 router = routers.SimpleRouter()
 router.register('location', LocationViewSet)
